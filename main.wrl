@@ -1,0 +1,158 @@
+#VRML V2.0 utf8
+#Made by Hanny Carballo
+#Fondo
+	Background {
+	groundAngle	[ 0.9, 1.5, 1.57 ]
+	groundColor	[ 0 0.8 0,
+			  0.174249 0.82 0.187362,
+			  0.467223 0.82 0.445801,
+			  0.621997 0.67 0.600279 ]
+	backUrl		"mpa125bk.jpg"
+
+	bottomUrl	"mpa125dn.jpg"
+
+	frontUrl	"mpa125ft.jpg"
+
+	leftUrl		"mpa125rt.jpg"
+
+	rightUrl	"mpa125lf.jpg"
+
+	topUrl		"mpa125up.jpg"
+
+	skyAngle	[ 0.1, 1.2, 1.57 ]
+	skyColor	[ 0.76238 0.8 0.1427,
+			  0.277798 0.219779 0.7,
+			  0.222549 0.390234 0.7,
+			  0.60094 0.662637 0.69 ]
+}
+
+#_______________
+
+Group {
+    children [
+     
+  # El objeto de destino que se va a rotar necesita tres transformaciones adicionales.  
+  # Se utilizan dos para rotar el sistema de coordenadas local, y
+  # dos se utilizan como objetivos para los sensores (T1 y T3).
+     
+   DEF T1 Transform { children
+            Transform {  children
+   
+             DEF T2 Transform { children
+       
+          Transform{translation 0 0 0 scale 1 1 1
+		  children[ DEF A1 Inline{url"dinosaurio.wrl"}]}
+                }
+            }
+        }
+
+Transform {   # manivela izquierda - gira sobre el eje Y => T1
+
+            translation -1 20 3 rotation 0 10 1 -1.57 #rotacion de la palanca izq
+			children [ DEF T3 Transform { children
+			        DEF G1 Group { children [
+                                    Transform {
+										           rotation 1 0 0 1.57 #rotacion de las esferas de las palancas
+												    translation -16 -2 4 scale 1.5 .5 .5 children 
+Shape { geometry Sphere { radius 22 }
+appearance Appearance {material Material{diffuseColor 0.9 0 0 transparency 1}} #esferas de las palancas				
+                            }
+                        }
+                    ]} # end Group
+                }
+                DEF CS1 CylinderSensor {
+                    maxAngle 1.57
+					minAngle 2  #angulo que gira la palanca izq en tremas grande mas giro en x
+                }
+            ]
+        }
+
+Transform {     # manivela derecha - gira sobre el eje X => T2
+       translation 0 10 1
+	   rotation 0 1 0 1.57 #gira la palanca derecha en x, y z segun uno quiera para que se mueva en ese eje
+	   children [
+                DEF T4 Transform { children USE G1 }
+                DEF CS2 CylinderSensor {
+                    maxAngle 1.57
+					minAngle 2   #angulo que gira la palanca derecha en tremas grande mas giro en x        
+					}
+				]
+		}    
+    ]
+}
+#ROUTE CS1.rotation_changed TO T1.rotation # gira sobre el eje Y
+#ROUTE CS1.rotation_changed TO T3.rotation # gira la manivela
+ROUTE CS2.rotation_changed TO T2.rotation  # rotates about local X-axis
+#ROUTE CS2.rotation_changed TO T4.rotation  # rotates the crank handle
+
+#texto
+Transform {translation 24 10 13.5  
+children 
+[Shape {appearance Appearance 
+{material Material{diffuseColor 0.372549019 0.02745098 0.305882352 specularColor -30.5 -0.5 .5 shininess 0.8}} 
+geometry Text {string["HANNY "]
+fontStyle FontStyle{family"Hello Vintage",
+style"BOLD",size 6.5 
+spacing 1.0 justify"BEGIN"}}}]}
+#termina el texto
+
+#texto
+Transform {translation 40 10 13.5  
+children 
+[Shape {appearance Appearance 
+{material Material{diffuseColor 0.372549019 0.02745098 0.305882352 specularColor -30.5 -0.5 .5 shininess 0.8}} 
+geometry Text {string["CARBALLO"]
+fontStyle FontStyle{family"Hello Vintage",
+style"BOLD",size 6.5 
+spacing 1.0 justify"BEGIN"}}}]}
+#termina el texto
+
+#texto
+Transform {translation 64 10 13.5  
+children 
+[Shape {appearance Appearance 
+{material Material{diffuseColor 0.372549019 0.02745098 0.305882352 specularColor -30.5 -0.5 .5 shininess 0.8}} 
+geometry Text {string["RAMIREZ"]
+fontStyle FontStyle{family"Hello Vintage",
+style"BOLD",size 6.5 
+spacing 1.0 justify"BEGIN"}}}]}
+#termina el texto
+
+#texto
+Transform {translation 43.5 0 13.5  
+children 
+[Shape {appearance Appearance 
+{material Material{diffuseColor 0.372549019 0.02745098 0.305882352 specularColor -30.5 -0.5 .5 shininess 0.8}} 
+geometry Text {string["T - REX"]
+fontStyle FontStyle{family"Hello Vintage",
+style"BOLD",size 6.5 
+spacing 1.0 justify"BEGIN"}}}]}
+#termina el texto
+
+#_______________
+
+Sound {
+	minFront 100
+	minBack 100
+	maxFront 100
+	maxBack 100
+	spatialize FALSE
+	source AudioClip {
+		url"Rugido.mp3"
+		startTime 0
+		loop TRUE
+	}
+}
+
+Sound {
+	minFront 2000
+	minBack 2000
+	maxFront 2000
+	maxBack 2000
+	spatialize FALSE
+	source AudioClip {
+		url"Canción1.mp3"
+		startTime 0
+		loop TRUE
+	}
+}
