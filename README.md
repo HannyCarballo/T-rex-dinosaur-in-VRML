@@ -1,5 +1,6 @@
-# T-rex-dinosaur-in-VRML <img width="150" alt="image" src="https://media0.giphy.com/media/h79DDJVyrwKcBBErNv/giphy.gif?cid=ecf05e47l9n9t4vknyb69demr6mh9l76e1o5nl4kr1sdx0m0&rid=giphy.gif&ct=s">
+# T-rex-dinosaur-in-VRML 
 ![Dino](https://user-images.githubusercontent.com/89166148/169633961-3e363ea3-400d-4a9c-8135-a36d483189b5.png)
+<img width="150" alt="image" src="https://media0.giphy.com/media/h79DDJVyrwKcBBErNv/giphy.gif?cid=ecf05e47l9n9t4vknyb69demr6mh9l76e1o5nl4kr1sdx0m0&rid=giphy.gif&ct=s">
 
 ### Steps to run this code
 - Download "cortona3D": http://www.cortona3d.com/en/cortona3d-viewer 
